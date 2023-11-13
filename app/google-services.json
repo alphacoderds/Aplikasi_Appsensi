@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "348759330268",
+    "project_id": "aplikasi-appsensi",
+    "storage_bucket": "aplikasi-appsensi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348759330268:android:47fd229c8e35ce247e5319",
+        "android_client_info": {
+          "package_name": "com.example.aplikasiappsensi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoJvWApHjRYPdgKEH-Ud_wVwTps16wmlM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <eksternal-path
+        name = "eksternal"
+        path = "."/>
+    <eksternal-files-path
+        name = "eksternal_files"
+        path = "."/>
+    <cache-path
+        name = "cache"
+        path = "."/>
+    <eksternal-cache-path
+        name = "eksternal_cache"
+        path = "."/>
+    <files-path
+        name = "files"
+        path = "."/>
+</paths>

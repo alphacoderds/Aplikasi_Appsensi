@@ -3,15 +3,28 @@ package com.example.aplikasiappsensi
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.cardview.widget.CardView
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var strTitle: String
+    private lateinit var cvAbsenMasuk: CardView
+    private lateinit var cvAbsenKeluar: CardView
+    private lateinit var cvHistory: CardView
+    private lateinit var cvPerizinan: CardView
+    private lateinit var imageLogout: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        cvAbsenMasuk = findViewById(R.id.cvAbsenMasuk)
+        cvAbsenKeluar = findViewById(R.id.cvAbsenKeluar)
+        cvHistory = findViewById(R.id.cvHistory)
+        cvPerizinan = findViewById(R.id.cvPerizinan)
+        imageLogout = findViewById(R.id.imageLogout)
 
         setInitLayout()
 

@@ -6,19 +6,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_main.*
+
 import android.Manifest
+import android.widget.Button
+import android.widget.EditText
 
 class LoginActivity : AppCompatActivity() {
     lateinit var session: SessionLogin
     lateinit var strName: String
     lateinit var strPassword: String
     var REQ_PERMISSION = 101
+    private lateinit var btnLogin: Button
+    private lateinit var inputNama: EditText
+    private lateinit var inputPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        btnLogin = findViewById(R.id.btnLogin)
+        inputNama = findViewById(R.id.inputNama)
+        inputPassword = findViewById(R.id.inputPassword)
 
         setPermission()
         setInitLayout()

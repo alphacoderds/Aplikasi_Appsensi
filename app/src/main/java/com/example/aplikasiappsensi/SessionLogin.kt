@@ -1,14 +1,7 @@
 package com.example.aplikasiappsensi
-
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import android.Manifest
-import android.content.Context
 
 class SessionLogin(var context: Context) {
     var pref: SharedPreferences

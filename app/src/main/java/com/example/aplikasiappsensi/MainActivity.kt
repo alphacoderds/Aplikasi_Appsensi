@@ -1,11 +1,11 @@
 package com.example.aplikasiappsensi
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 
 class MainActivity : AppCompatActivity() {
@@ -30,23 +30,29 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun setInitLayout(){
-
         cvAbsenMasuk.setOnClickListener{
             strTitle = "Absen Masuk"
+            val intent = Intent(this@MainActivity, AbsenActivity::class.java)
+            intent.putExtra("title", strTitle)
             startActivity(intent)
         }
 
         cvAbsenKeluar.setOnClickListener {
             strTitle = "Absen Keluar"
+            val intent = Intent(this@MainActivity, AbsenActivity::class.java)
+            intent.putExtra("title", strTitle)
             startActivity(intent)
         }
 
         cvPerizinan.setOnClickListener {
             strTitle = "Perizinan"
+            val intent = Intent(this@MainActivity, AbsenActivity::class.java)
+            intent.putExtra("title", strTitle)
             startActivity(intent)
         }
 
         cvHistory.setOnClickListener {
+            val intent = Intent(this@MainActivity, HistoryActivity::class.java)
             startActivity(intent)
         }
 
@@ -54,9 +60,14 @@ class MainActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this@MainActivity)
             builder.setMessage("Apakah Anda yakin ingin logout?")
             builder.setCancelable(true)
+            builder.setPositiveButton("Ya") { dialog, which ->
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
             builder.setNegativeButton("Batal") {dialog, which -> dialog.cancel() }
+            val alertDialog = builder.create()
+            alertDialog.show()
         }
     }
-
 }
 

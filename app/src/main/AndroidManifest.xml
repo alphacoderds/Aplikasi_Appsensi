@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name=" android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
@@ -28,10 +28,19 @@
         tools:targetApi="31" >
         <activity
             android:name=".MainActivity"
-            android:exported ="true" />
+            android:screenOrientation="fullSensor"
+            android:exported="false"/>
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="fullSensor"
+            android:exported ="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="fullSensor"
+            android:exported ="false" />
             <activity
                 android:name=".SplashActivity"
-                android:screenOrientation="portrait"
+                android:screenOrientation="fullSensor"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

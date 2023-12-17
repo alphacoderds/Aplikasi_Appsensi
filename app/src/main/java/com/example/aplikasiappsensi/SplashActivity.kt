@@ -6,22 +6,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.core.content.ContextCompat.startActivity
 
-@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+    companion object {
+        // Waktu tunda sebelum beralih ke LoginActivity (dalam milidetik)
+        private const val SPLASH_TIME_OUT: Long = 3000
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            goToMainActivity()
-        }, 3000L)
+            navigateToLogin()
+        }, SPLASH_TIME_OUT)
     }
-
-    private fun goToMainActivity() {
-        Intent(this, MainActivity::class.java).also {
-            startActivity(it)
-            finish()
-        }
+private fun navigateToLogin() {
+    val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+    startActivity(intent)
+    finish()
     }
 }

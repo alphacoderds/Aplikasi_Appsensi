@@ -1,24 +1,30 @@
 package com.example.aplikasiappsensi
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-
-import android.Manifest
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var session: SessionLogin
-    lateinit var strName: String
-    lateinit var strPassword: String
-    var REQ_PERMISSION = 101
+    private lateinit var session: SessionLogin
+    private lateinit var strName: String
+    private lateinit var strPassword: String
+    private var REQ_PERMISSION = 101
     private lateinit var btnLogin: Button
     private lateinit var inputNama: EditText
     private lateinit var inputPassword: EditText
+    private lateinit var tvCreateAccount: TextView
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +32,9 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
         inputNama = findViewById(R.id.inputNama)
         inputPassword = findViewById(R.id.inputPassword)
+        tvCreateAccount = findViewById(R.id.tvCreateAccount)
 
+        auth = FirebaseAuth.getInstance()
         setPermission()
         setInitLayout()
     }
@@ -56,13 +64,35 @@ class LoginActivity : AppCompatActivity() {
             strPassword = inputPassword.text.toString()
 
             if (strName.isEmpty() || strPassword.isEmpty()) {
-                Toast.makeText(this@LoginActivity, "Form tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Form tidak boleh kosong!", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-                session.createLoginSession(strName)
+                CoroutineScope(Dispatchers.IO).launch {
+                    loginUser(strName, strPassword)
+                }
             }
         }
+        tvCreateAccountClickListener()
+    }
+
+    private fun tvCreateAccountClickListener() {
+        tvCreateAccount.setOnClickListener {
+            val intent = (Intent(this@LoginActivity, RegisterActivity::class.java))
+            startActivity(intent)
+        }
+    }
+
+    private suspend fun loginUser(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this@LoginActivity, "Login gagal: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     override fun onRequestPermissionsResult(

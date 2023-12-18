@@ -15,12 +15,21 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/ic_back">
+            android:layout_height="?attr/actionBarSize">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="-1dp"
+                    android:src="@drawable/ic_back" />
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -64,7 +73,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@android:color/holo_red_light"
+                        android:background="@color/violet_tua"
                         android:orientation="horizontal">
 
                     <ImageView
@@ -89,7 +98,7 @@
                     <LinearLayout
                         android:id="@+id/layoutImage"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20sp"
                         android:layout_marginEnd="20dp"
@@ -141,7 +150,7 @@
                         android:id="@+id/inputNama"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:backgroundTint="@android:color/holo_red_light"
+                        android:backgroundTint="@color/black"
                         android:hint="Masukkan nama Anda"
                         android:imeOptions="actionNext"
                         android:maxLines="1"
@@ -170,7 +179,7 @@
                         android:id="@+id/inputTanggal"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:backgroundTint="@android:color/holo_red_light"
+                        android:backgroundTint="@color/black"
                         android:focusableInTouchMode="false"
                         android:hint="Masukkan tanggal dan waktu"
                         android:imeOptions="actionNext"
@@ -201,7 +210,7 @@
                         android:id="@+id/inputLokasi"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:backgroundTint="@android:color/holo_red_light"
+                        android:backgroundTint="@color/black"
                         android:focusableInTouchMode="false"
                         android:hint="Masukan lokasi"
                         android:imeOptions="actionNext"
@@ -215,7 +224,7 @@
                 <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
                 android:orientation="vertical">
 
                     <TextView
@@ -230,7 +239,7 @@
                         android:id="@+id/inputKeterangan"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:backgroundTint="@android:color/holo_red_light"
+                        android:backgroundTint="@color/black"
                         android:hint="Masukkan Keterangan"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
@@ -253,8 +262,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@android:color/holo_red_light"
-            android:text="Masuk"
+            android:backgroundTint="@color/violet_tua"
+            android:text="Kirim"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:cornerRadius="20dp"

@@ -3,6 +3,7 @@ package com.example.aplikasiappsensi
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -24,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var inputPassword: EditText
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var txtLogin: TextView
+    private lateinit var tvSignIn: TextView
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,31 +37,29 @@ class RegisterActivity : AppCompatActivity() {
         inputNama = findViewById(R.id.inputNama)
         inputUsername = findViewById(R.id.inputUsername)
         inputPassword = findViewById(R.id.inputPassword)
+        tvSignIn = findViewById(R.id.tvSignIn)
         firebaseAuth = FirebaseAuth.getInstance()
         supportActionBar?.hide()
 
         txtLoginListener()
         setInitLayout()
-        setContentView(binding.root)
+
+
+
     }
 
     private fun txtLoginListener() {
-        val txtLogin = findViewById<TextView>(R.id.tvSignIn)
-        txtLogin.setOnClickListener {
+        val tvSignIn = findViewById<TextView>(R.id.tvSignIn)
+        tvSignIn.setOnClickListener {
             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun setInitLayout() {
-        session = SessionLogin(applicationContext)
-
-        if (session.isLoggedIn()) {
-            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
-            finish()
-        }
 
         btnCreate.setOnClickListener {
+            Log.e("error","test")
             strName = inputNama.text.toString()
             strUsername = inputUsername.text.toString()
             strPassword = inputPassword.text.toString()

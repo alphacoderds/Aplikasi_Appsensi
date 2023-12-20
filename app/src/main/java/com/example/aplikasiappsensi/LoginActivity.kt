@@ -37,8 +37,16 @@ class LoginActivity : AppCompatActivity() {
         tvCreateAccount = findViewById(R.id.tvCreateAccount)
 
         auth = FirebaseAuth.getInstance()
-        setPermission()
+
+        session = SessionLogin(applicationContext)
+
+        if (auth.currentUser != null){
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            finish()
+        }
         setInitLayout()
+        setPermission()
+
 
         tvCreateAccountClickListener()
     }
@@ -56,13 +64,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setInitLayout() {
-        session = SessionLogin(applicationContext)
-
-        if (auth.currentUser != null){
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-            finish()
-        }
-
         btnLogin.setOnClickListener {
             strName = inputNama.text.toString()
             strPassword = inputPassword.text.toString()

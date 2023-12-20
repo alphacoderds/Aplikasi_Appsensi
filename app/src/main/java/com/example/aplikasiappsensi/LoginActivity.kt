@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var inputNama: EditText
     private lateinit var inputPassword: EditText
-    private lateinit var tvCreateAccount: TextView
+    lateinit var tvCreateAccount: TextView
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,8 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         setPermission()
         setInitLayout()
+
+        tvCreateAccountClickListener()
     }
 
     private fun setPermission() {
@@ -54,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setInitLayout() {
         session = SessionLogin(applicationContext)
 
-        if (session.isLoggedIn()){
+        if (auth.currentUser != null){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish()
         }
@@ -72,11 +76,11 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-        tvCreateAccountClickListener()
     }
 
     private fun tvCreateAccountClickListener() {
         tvCreateAccount.setOnClickListener {
+            Log.d("LoginActivity", "tvCreateAccountClickListener: Clicked")
             val intent = (Intent(this@LoginActivity, RegisterActivity::class.java))
             startActivity(intent)
         }
@@ -86,10 +90,14 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    val user: FirebaseUser? = auth.currentUser
+                    Log.d("LoginActivity", "signInWithEmail:success")
+
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
+                    Log.w("LoginActivity", "signInWithEmail:failure", task.exception)
                     Toast.makeText(this@LoginActivity, "Login gagal: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }

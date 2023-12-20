@@ -2,8 +2,8 @@ package com.example.aplikasiappsensi
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -16,15 +16,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cvHistory: CardView
     private lateinit var cvPerizinan: CardView
     private lateinit var imageLogout: ImageView
+    private lateinit var tvAbsenMasuk: TextView
+    private lateinit var tvAbsenKeluar: TextView
+    private lateinit var tvPerizinan: TextView
+    private lateinit var tvRiwayatAbsen : TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         cvAbsenMasuk = findViewById(R.id.cvAbsenMasuk)
         cvAbsenKeluar = findViewById(R.id.cvAbsenKeluar)
         cvHistory = findViewById(R.id.cvHistory)
         cvPerizinan = findViewById(R.id.cvPerizinan)
         imageLogout = findViewById(R.id.imageLogout)
+        tvAbsenMasuk = findViewById(R.id.tvAbsenMasuk)
+        tvAbsenKeluar = findViewById(R.id.tvAbsenKeluar)
+        tvPerizinan = findViewById(R.id.tvPerizinan)
+        tvRiwayatAbsen = findViewById(R.id.tvRiwayatAbsen)
 
         setInitLayout()
 

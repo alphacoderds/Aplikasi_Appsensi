@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var inputUsername: EditText
     private lateinit var inputPassword: EditText
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var txtLogin: TextView
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {

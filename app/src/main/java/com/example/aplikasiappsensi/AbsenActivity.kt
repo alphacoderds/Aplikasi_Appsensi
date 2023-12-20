@@ -69,6 +69,7 @@ class AbsenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_absen)
+        tvTitle = findViewById(R.id.tvTitle)
         inputNama = findViewById(R.id.inputNama)
         inputTanggal = findViewById(R.id.inputTanggal)
         inputKeterangan = findViewById(R.id.inputKeterangan)
@@ -120,6 +121,7 @@ class AbsenActivity : AppCompatActivity() {
     private fun setInitLayout() {
         progressDialog = ProgressDialog(this)
         strTitle = intent.extras?.getString(DATA_TITLE).toString()
+        tvTitle = findViewById(R.id.tvTitle)
 
         if (strTitle.isNotEmpty()) {
             tvTitle.text = strTitle
@@ -215,6 +217,7 @@ class AbsenActivity : AppCompatActivity() {
         btnAbsen.setOnClickListener {
             val strNama = inputNama.text.toString()
             val strTanggal = inputTanggal.text.toString()
+
             val strKeterangan = inputKeterangan.text.toString()
             if (strFilePath.equals(null) || strNama.isEmpty() || strCurrentLocation.isEmpty()
                 || strTanggal.isEmpty() || strKeterangan.isEmpty()) {

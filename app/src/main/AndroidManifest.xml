@@ -27,13 +27,17 @@
         android:theme="@style/Theme.AplikasiAppsensi"
         tools:targetApi="31" >
         <activity
+            android:name=".AbsenActivity"
+            android:screenOrientation="fullSensor"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="fullSensor"
-            android:exported="false"/>
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="fullSensor"
-            android:exported ="false" />
+            android:exported ="true" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="fullSensor"

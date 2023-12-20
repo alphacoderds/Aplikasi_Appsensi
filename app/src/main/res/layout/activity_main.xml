@@ -85,6 +85,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAbsenMasuk"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -142,6 +143,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAbsenKeluar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -199,6 +201,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvPerizinan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -256,6 +259,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRiwayatAbsen"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

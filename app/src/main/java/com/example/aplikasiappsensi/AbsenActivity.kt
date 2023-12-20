@@ -23,6 +23,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import android.util.Base64
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
@@ -30,6 +31,7 @@ import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.firestore.FirebaseFirestore
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -63,8 +65,9 @@ class AbsenActivity : AppCompatActivity() {
     lateinit var inputKeterangan: EditText
     lateinit var btnAbsen: Button
     lateinit var imageSelfie: ImageView
-    lateinit var layoutImage: ImageView
+    lateinit var layoutImage: LinearLayout
     lateinit var tvTitle: TextView
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,11 +76,14 @@ class AbsenActivity : AppCompatActivity() {
         inputNama = findViewById(R.id.inputNama)
         inputTanggal = findViewById(R.id.inputTanggal)
         inputKeterangan = findViewById(R.id.inputKeterangan)
+        inputLokasi = findViewById(R.id.inputlokasiBaru)
         btnAbsen = findViewById(R.id.btnAbsen)
+        imageSelfie = findViewById(R.id.imageSelfie)
+        layoutImage = findViewById(R.id.layoutImage)
+        firestore = FirebaseFirestore.getInstance()
 
 
         setInitLayout()
-        setCurrentLocation()
         setUploadData()
     }
 
@@ -127,8 +133,6 @@ class AbsenActivity : AppCompatActivity() {
             tvTitle.text = strTitle
         }
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -153,62 +157,59 @@ class AbsenActivity : AppCompatActivity() {
             ).show()
         }
 
-        layoutImage.setOnClickListener {
-            Dexter.withContext(this@AbsenActivity)
-                .withPermissions(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-                .withListener(object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                        if (report.areAllPermissionsGranted()) {
-                            try {
-                                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                                cameraIntent.putExtra(
-                                    "com.google.assistant.extra.USE_FRONT_CAMERA",
-                                    true
-                                )
-                                cameraIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true)
-                                cameraIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1)
-                                cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", 1)
-
-                                // Samsung
-                                cameraIntent.putExtra("camerafacing", "front")
-                                cameraIntent.putExtra("previous_mode", "front")
-
-                                // Huawei
-                                cameraIntent.putExtra("default_camera", "1")
-                                cameraIntent.putExtra(
-                                    "default_mode",
-                                    "com.huawei.camera2.mode.photo.PhotoMode")
-                                cameraIntent.putExtra(
-                                    MediaStore.EXTRA_OUTPUT,
-                                    FileProvider.getUriForFile(
-                                        this@AbsenActivity,
-                                        BuildConfig.APPLICATION_ID + ".provider",
-                                        createImageFile()
-                                    )
-                                )
-                                startActivityForResult(cameraIntent, REQ_CAMERA)
-                            } catch (ex: IOException) {
-                                Toast.makeText(this@AbsenActivity,
-                                    "Ups, gagal membuka kamera", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        permissions: List<PermissionRequest>,
-                        token: PermissionToken) {
-                        token.continuePermissionRequest()
-                    }
-                }).check()
+        imageSelfie.setOnClickListener {
+//            Dexter.withContext(this@AbsenActivity)
+//                .withPermissions(
+//                    Manifest.permission.CAMERA,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION,
+//                    Manifest.permission.ACCESS_FINE_LOCATION
+//                )
+//                .withListener(object : MultiplePermissionsListener {
+//                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+//                        if (report.areAllPermissionsGranted()) {
+//                            try {
+//                                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                                cameraIntent.putExtra(
+//                                    "com.google.assistant.extra.USE_FRONT_CAMERA",
+//                                    true
+//                                )
+//                                cameraIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true)
+//                                cameraIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1)
+//                                cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", 1)
+//
+//                                // Samsung
+//                                cameraIntent.putExtra("camerafacing", "front")
+//                                cameraIntent.putExtra("previous_mode", "front")
+//
+//                                // Huawei
+//                                cameraIntent.putExtra("default_camera", "1")
+//                                cameraIntent.putExtra(
+//                                    "default_mode",
+//                                    "com.huawei.camera2.mode.photo.PhotoMode")
+//                                cameraIntent.putExtra(
+//                                    MediaStore.EXTRA_OUTPUT,
+//                                    FileProvider.getUriForFile(
+//                                        this@AbsenActivity,
+//                                        BuildConfig.APPLICATION_ID + ".provider",
+//                                        createImageFile()
+//                                    )
+//                                )
+//                                startActivityForResult(cameraIntent, REQ_CAMERA)
+//                            } catch (ex: IOException) {
+//                                Toast.makeText(this@AbsenActivity,
+//                                    "Ups, gagal membuka kamera", Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//                    }
+//
+//                    override fun onPermissionRationaleShouldBeShown(
+//                        permissions: List<PermissionRequest>,
+//                        token: PermissionToken) {
+//                        token.continuePermissionRequest()
+//                    }
+//                }).check()
         }
-    }
-
-    private fun setSupportActionBar(toolbar: Toolbar) {
     }
 
 
@@ -217,12 +218,25 @@ class AbsenActivity : AppCompatActivity() {
         btnAbsen.setOnClickListener {
             val strNama = inputNama.text.toString()
             val strTanggal = inputTanggal.text.toString()
-
             val strKeterangan = inputKeterangan.text.toString()
-            if (strFilePath.equals(null) || strNama.isEmpty() || strCurrentLocation.isEmpty()
-                || strTanggal.isEmpty() || strKeterangan.isEmpty()) {
+            val lokasi = inputLokasi.text.toString()
+            if (strFilePath.equals(null) || strNama.isEmpty() 
+                || strTanggal.isEmpty() || strKeterangan.isEmpty() || lokasi.isEmpty()) {
                 Toast.makeText(this@AbsenActivity,
                     "Data tidak boleh ada yang kosong!", Toast.LENGTH_SHORT).show()
+            }else{
+                val mappData = hashMapOf(
+                    "nama" to strNama,
+                    "tanggal" to strTanggal,
+                    "alamat" to lokasi,
+                    "keterangan" to strKeterangan
+                )
+                firestore.collection("user").add(mappData).addOnSuccessListener {
+                    Toast.makeText(this, "Tambah Data Berhasil", Toast.LENGTH_SHORT).show()
+
+                }.addOnFailureListener {
+                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

@@ -12,10 +12,7 @@
         android:background="@android:color/transparent"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -43,7 +40,7 @@
 
             </RelativeLayout>
 
-        </androidx.appcompat.widget.Toolbar>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -189,37 +186,33 @@
                         android:textSize="16sp"/>
                 
                 </LinearLayout>
-            
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="vertical" >
-                
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lokasi"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
 
-                    <EditText
-                        android:id="@+id/inputLokasi"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:backgroundTint="@color/black"
-                        android:focusableInTouchMode="false"
-                        android:hint="Masukan lokasi"
-                        android:imeOptions="actionNext"
-                        android:inputType="date"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Keterangan"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <EditText
+                            android:id="@+id/inputlokasiBaru"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:backgroundTint="@color/black"
+                            android:hint="Masukkan Keterangan"
+                            android:imeOptions="actionDone"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+
+                    </LinearLayout>
 
                 <LinearLayout
                 android:layout_width="match_parent"

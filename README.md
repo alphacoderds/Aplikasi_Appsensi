@@ -28,4 +28,4 @@ Saat ini fitur yang tersedia masih CRUD dasar (Create, Read, Update, Delete) dat
 
 ## 📜 Lisensi  
 
-Proyek ini dibuat untuk **pembelajaran mata kuliah Pemrograman Mobile**.  
+Proyek ini dibuat untuk **praktikum mata kuliah Pemrograman Mobile**.  
